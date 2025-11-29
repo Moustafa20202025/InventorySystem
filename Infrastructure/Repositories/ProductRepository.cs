@@ -18,11 +18,32 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<int> AddAsync(Product product)
+
+        public async Task <Product> CreateProductAsync(Product product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
-            return product.Id;
+            return product;
+        }
+
+        public Task<int> DeleteProductAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Product>> GetAllProductAsync(int pageNumber, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product> GetProductByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> UpdateProductAsync(int id, Product product)
+        {
+            throw new NotImplementedException();
         }
     }
 }

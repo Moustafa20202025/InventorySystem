@@ -28,7 +28,7 @@ namespace InventorySystem
 
             // MediatR - load Application assembly
             builder.Services.AddMediatR(cfg =>
-                cfg.RegisterServicesFromAssembly(typeof(AddProductCommand).Assembly));
+                cfg.RegisterServicesFromAssembly(typeof(ProductDTO).Assembly));
 
             var app = builder.Build();
 
