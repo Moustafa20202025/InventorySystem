@@ -3,7 +3,7 @@ using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
-using Application.Products.Commands; 
+ 
 
 namespace InventorySystem
 {
@@ -28,7 +28,7 @@ namespace InventorySystem
 
             // MediatR - load Application assembly
             builder.Services.AddMediatR(cfg =>
-                cfg.RegisterServicesFromAssembly(typeof(ProductDTO).Assembly));
+                cfg.RegisterServicesFromAssembly(typeof(Application.Products.Commands.AddProductCommand).Assembly));
 
             var app = builder.Build();
 

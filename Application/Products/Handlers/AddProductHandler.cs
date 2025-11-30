@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Products.Handlers
 {
-    public class AddProductHandler 
+    public class AddProductHandler : IRequestHandler<AddProductCommand, int>
     {
         private readonly IProductRepository _repository;
 
@@ -19,7 +19,7 @@ namespace Application.Products.Handlers
             _repository = repository;
         }
 
-        public async Task<Product> Handle(ProductDTO request, CancellationToken cancellationToken)
+        public async Task<int> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
             var product = new Product
             {
@@ -29,8 +29,10 @@ namespace Application.Products.Handlers
                 StockQuantity = request.StockQuantity,  
                 IsAvailable = request.IsAvailable   
             };
+            
+             await _repository.CreateProductAsync(product);
 
-            return await _repository.CreateProductAsync(product);
+            return product.Id;
         }
     }
 }

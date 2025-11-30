@@ -15,7 +15,7 @@ namespace InventorySystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct(ProductDTO command)
+        public async Task<IActionResult> AddProduct(AddProductCommand command)
         {
             var id = await _mediator.Send(command);
             return Ok(new { ProductId = id });
