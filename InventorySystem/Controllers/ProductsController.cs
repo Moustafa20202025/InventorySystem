@@ -1,6 +1,7 @@
-﻿using Application.Products.Commands;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using Application.Common.DTOs.Product;
+using Application.Services.Products.Commands.CreateProduct;
 namespace InventorySystem.Controllers
 {
     [ApiController]
