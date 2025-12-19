@@ -1,11 +1,8 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using FluentResults;
 using Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -26,24 +23,51 @@ namespace Infrastructure.Repositories
             return product;
         }
 
-        public Task<int> DeleteProductAsync(int id)
+        public async Task<int> DeleteProductAsync(int id)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+                return 0;
+
+            _context.Products.Remove(product);
+            return await _context.SaveChangesAsync();
         }
+
 
         public Task<List<Product>> GetAllProductAsync(int pageNumber, int pageSize)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Product> GetProductByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task<int> UpdateProductAsync(int id, Product product)
+        public async Task<Result<Product>> UpdateAsync(int id, Product product)
         {
-            throw new NotImplementedException();
+            var existing = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            if (existing == null)
+            {
+                return Result.Fail<Product>($"Product with ID {id} not found.");
+            }
+
+            existing.Name = product.Name;
+            existing.Description = product.Description;
+            existing.PurchasePrice = product.PurchasePrice;
+            existing.StockQuantity = product.StockQuantity;
+            existing.IsAvailable = product.IsAvailable;
+
+            await _context.SaveChangesAsync();
+
+            return Result.Ok(existing); 
         }
+
+
+
+
+       
+
+
     }
 }

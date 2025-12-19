@@ -1,10 +1,9 @@
+using Application.Common.DTOs.Product;
+using Application.Services.Products.Commands.UpdateProduct;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using MediatR;
-using Application.Common.DTOs.Product;
-
 
 namespace InventorySystem
 {
@@ -17,7 +16,6 @@ namespace InventorySystem
             // Add services to the container.
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
             builder.Services.AddControllers();
 
             // DbContext
@@ -30,6 +28,10 @@ namespace InventorySystem
             // MediatR - load Application assembly
             builder.Services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssembly(typeof(ProductDto).Assembly));
+            // AutoMapper - load Application assembly
+
+            builder.Services.AddAutoMapper(cfg => { }, typeof(UpdateProductCommand).Assembly);
+
 
             var app = builder.Build();
 
