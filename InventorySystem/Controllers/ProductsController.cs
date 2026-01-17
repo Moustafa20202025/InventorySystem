@@ -1,9 +1,14 @@
-﻿using Application.Services.Products.Commands.CreateProduct;
+﻿using Application.Common.DTOs.Product;
+using Application.Services.Products.Commands.CreateProduct;
 using Application.Services.Products.Commands.DeleteProduct;
 using Application.Services.Products.Commands.UpdateProduct;
+using Application.Services.Products.Queries.GetProduct;
+using Application.Services.Products.Queries.GetProductById;
 using FluentResults;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using static Application.Common.shared;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 namespace InventorySystem.Controllers
@@ -80,6 +85,40 @@ namespace InventorySystem.Controllers
             return Ok(new { message = "Deleted", error = ErrorType.succseeded.ToString() });
         }
 
-    }
+        #region /Get /GetAllProduct
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllProductAsync()
+        {
+            var result = await _mediator.Send(new GetProductQuery());
+            return Ok(result.Value);
+        }
+
+        #endregion
+        #region /Get /GetProductById
+        [HttpGet("{productId}")]
+        public async Task<IActionResult> GetByIdProductAsync(int productId)
+        {
+            try
+            {
+                Log.Information("Executing Get product by ID Controller..");
+                var product = await _mediator.Send(new GetProductByIdQuery { ProductId = productId });
+
+                if (product == null)
+                    return NotFound(Result.Fail<ProductDto>("No product found"));
+
+                return Ok(Result.Ok(product));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"Internal Server Error: {e.Message}\n\nStackTrace:\n{e.StackTrace}\n\nInner:\n{e.InnerException?.Message}");
+            }
+        }
+
+    
+    #endregion
+
+
+}
 }
 

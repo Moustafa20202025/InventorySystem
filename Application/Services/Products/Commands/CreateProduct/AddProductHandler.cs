@@ -27,14 +27,15 @@ public class AddProductHandler : IRequestHandler<AddProductCommand, Result<Produ
 
         await _repository.CreateProductAsync(product);
 
-        var dto = new ProductDto(
-            product.Id,
-            product.Name,
-            product.Description,
-            product.PurchasePrice,
-            product.StockQuantity,
-            product.IsAvailable
-        );
+        var dto = new ProductDto
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            PurchasePrice = product.PurchasePrice,
+            StockQuantity = product.StockQuantity,
+            IsAvailable = product.IsAvailable
+        };
 
         return Result.Ok(dto);
     }

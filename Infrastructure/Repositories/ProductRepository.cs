@@ -34,10 +34,14 @@ namespace Infrastructure.Repositories
         }
 
 
-        public Task<List<Product>> GetAllProductAsync(int pageNumber, int pageSize)
+        public async Task<List<Product>> GetAllProductAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Products
+                .OrderBy(p => p.Id)
+                .ToListAsync();
         }
+
+       
 
         public async Task<Product> GetProductByIdAsync(int id)
         {

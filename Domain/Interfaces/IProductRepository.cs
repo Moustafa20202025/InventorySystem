@@ -10,7 +10,7 @@ namespace Domain.Interfaces
 {
     public interface IProductRepository
     {
-        Task<List<Product>> GetAllProductAsync(int pageNumber, int pageSize);
+        Task<List<Product>> GetAllProductAsync();
         Task<Product> GetProductByIdAsync(int id);
         Task<Product> CreateProductAsync(Product product);
         Task<Result<Product>> UpdateAsync(int id ,Product product);

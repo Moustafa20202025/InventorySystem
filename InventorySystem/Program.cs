@@ -1,4 +1,5 @@
 using Application.Common.DTOs.Product;
+using Application.Common.Mappings;
 using Application.Services.Products.Commands.UpdateProduct;
 using Domain.Interfaces;
 using Infrastructure.Data;
@@ -30,7 +31,7 @@ namespace InventorySystem
                 cfg.RegisterServicesFromAssembly(typeof(ProductDto).Assembly));
             // AutoMapper - load Application assembly
 
-            builder.Services.AddAutoMapper(cfg => { }, typeof(UpdateProductCommand).Assembly);
+            builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
 
 
             var app = builder.Build();

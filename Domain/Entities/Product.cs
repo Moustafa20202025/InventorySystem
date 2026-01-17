@@ -1,9 +1,4 @@
-﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Domain.Entities
 {
@@ -25,17 +20,3 @@ namespace Domain.Entities
 
 
 
-//
-
-
-//public virtual ICollection<Item> Items { get; set; } = new List<Item>();
-//public Product() { }
-//public void UpdateProductQuantity(int quantity)
-//{
-//    StockQuantity = StockQuantity - quantity;
-//}
-//public void UpdateProductAvaible(int quantity, string isAvailable)
-//{
-//    StockQuantity = StockQuantity - quantity;
-//    IsAvailable = isAvailable;
-//}

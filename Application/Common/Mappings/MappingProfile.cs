@@ -22,10 +22,16 @@ namespace Application.Common.Mappings
             foreach (var type in types)
             {
                 var instance = Activator.CreateInstance(type);
-                var methodInfo = type.GetMethod("Mapping");
-                methodInfo?.Invoke(instance, new object[] { this });
+                var methodInfo = type.GetMethod("Mapping", new[] { typeof(Profile) });
+
+                if (methodInfo != null)
+                {
+                    var action = (Action<Profile>)Delegate.CreateDelegate(typeof(Action<Profile>), instance, methodInfo);
+                    action(this); // استدعاء الميثود بشكل طبيعي
+                }
+
             }
         }
-
     }
+
 }
